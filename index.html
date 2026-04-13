@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mark & Investors, osoba rizikového kapitálu, a.s.</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -45,9 +45,7 @@
   }
 
   .nav-logo {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: 18px;
+    font-family: 'Cormorant Garamond', serif;
     letter-spacing: -0.3px;
     color: var(--text);
     text-decoration: none;
@@ -134,7 +132,7 @@
   }
 
   h1 {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Cormorant Garamond', serif;
     font-size: clamp(42px, 5vw, 68px);
     font-weight: 800;
     line-height: 1.05;
@@ -201,7 +199,7 @@
   }
 
   .stat-num {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Cormorant Garamond', serif;
     font-size: 28px;
     font-weight: 700;
     color: var(--text);
@@ -241,7 +239,7 @@
   }
 
   .card-graph-val {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Cormorant Garamond', serif;
     font-size: 32px;
     font-weight: 700;
   }
@@ -339,7 +337,7 @@
   }
 
   h2 {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Cormorant Garamond', serif;
     font-size: clamp(32px, 3.5vw, 48px);
     font-weight: 700;
     letter-spacing: -0.8px;
@@ -387,7 +385,7 @@
   .about-card-icon svg { width: 22px; height: 22px; stroke: var(--blue); fill: none; stroke-width: 1.8; }
 
   .about-card h3 {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Cormorant Garamond', serif;
     font-size: 16px;
     font-weight: 700;
     margin-bottom: 8px;
@@ -420,7 +418,7 @@
   .strategy-card:hover { border-color: rgba(43,127,255,0.3); }
 
   .strategy-num {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Cormorant Garamond', serif;
     font-size: 48px;
     font-weight: 800;
     color: rgba(43,127,255,0.15);
@@ -429,7 +427,7 @@
   }
 
   .strategy-card h3 {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Cormorant Garamond', serif;
     font-size: 20px;
     font-weight: 700;
     margin-bottom: 12px;
@@ -535,7 +533,7 @@
   }
 
   .legal-box h3 {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Cormorant Garamond', serif;
     font-size: 16px;
     font-weight: 700;
     margin-bottom: 12px;
@@ -568,7 +566,7 @@
   }
 
   .footer-brand-name {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Cormorant Garamond', serif;
     font-size: 16px;
     font-weight: 700;
     margin-bottom: 10px;
@@ -619,19 +617,142 @@
     color: rgba(136,150,176,0.5);
   }
 
+  /* ─── HAMBURGER ─── */
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 8px;
+    background: none;
+    border: none;
+  }
+  .nav-hamburger span {
+    display: block;
+    width: 24px; height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 72px; left: 0; right: 0;
+    background: rgba(8,12,20,0.98);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 24px;
+    z-index: 99;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 18px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    font-weight: 500;
+  }
+  .mobile-menu a:last-child { border-bottom: none; }
+
   /* ─── RESPONSIVE ─── */
-  @media (max-width: 900px) {
-    nav { padding: 0 24px; }
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; }
     .nav-links { display: none; }
-    #hero { grid-template-columns: 1fr; padding: 100px 24px 60px; }
+    .nav-btn { display: none; }
+    .nav-hamburger { display: flex; }
+
+    #hero {
+      grid-template-columns: 1fr;
+      padding: 90px 20px 48px;
+      gap: 32px;
+    }
     .hero-right { display: none; }
+
+    h1 {
+      font-size: 42px;
+      letter-spacing: -0.5px;
+    }
+
+    .hero-label { font-size: 11px; }
+    .hero-sub { font-size: 15px; margin-bottom: 28px; }
+
+    .hero-cta {
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+    .btn-primary, .btn-secondary {
+      width: 100%;
+      justify-content: center;
+      padding: 14px 20px;
+    }
+
+    .hero-stats {
+      grid-template-columns: 1fr 1fr;
+    }
+    .hero-stats .stat:last-child {
+      grid-column: 1 / -1;
+    }
+
+    .disclaimer-bar {
+      padding: 14px 20px;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    section { padding: 56px 20px; }
+
+    h2 { font-size: 34px; }
+    .section-sub { font-size: 15px; margin-bottom: 36px; }
+
+    .about-grid {
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+    .about-cards {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .about-card { padding: 20px; }
+
+    .strategy-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    .strategy-card { padding: 24px; }
+    .strategy-num { font-size: 36px; }
+
+    .docs-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .contact-grid {
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+
+    .footer-top {
+      flex-direction: column;
+      gap: 32px;
+    }
+    .footer-links-col { width: 100%; }
+    footer { padding: 40px 20px; }
+
+    .card-mini { flex-direction: column; gap: 12px; }
+  }
+
+  @media (max-width: 400px) {
+    h1 { font-size: 34px; }
+    h2 { font-size: 28px; }
     .hero-stats { grid-template-columns: 1fr; }
-    section { padding: 60px 24px; }
-    .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
-    .strategy-grid { grid-template-columns: 1fr; }
-    .footer-top { flex-direction: column; }
-    .disclaimer-bar { padding: 14px 24px; }
-    footer { padding: 40px 24px; }
+    .hero-stats .stat:last-child { grid-column: auto; }
   }
 </style>
 </head>
@@ -650,7 +771,18 @@
     <li><a href="#kontakt">Kontakt</a></li>
   </ul>
   <a href="#kontakt" class="nav-btn">Kontaktujte nás</a>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#o-nas" onclick="closeMobile()">O nás</a>
+  <a href="#strategie" onclick="closeMobile()">Strategie</a>
+  <a href="#dokumenty" onclick="closeMobile()">Dokumenty</a>
+  <a href="#kontakt" onclick="closeMobile()">Kontakt</a>
+  <a href="#kontakt" onclick="closeMobile()" style="color: var(--blue); font-weight:600;">Kontaktujte nás →</a>
 
 <!-- HERO -->
 <section id="hero">
@@ -897,7 +1029,7 @@
         </div>
         <div>
           <div class="contact-item-label">E-mail</div>
-          <div class="contact-item-val">info@markinvestors.cz</div>
+          <div class="contact-item-val"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d7beb9b1b897bab6a5bcbeb9a1b2a4a3b8a5a4f9b4ad">[email&#160;protected]</a></div>
         </div>
       </div>
       <div class="contact-item">
@@ -989,13 +1121,19 @@
   </div>
 </footer>
 
-<script>
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      const target = document.querySelector(a.getAttribute('href'));
-      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
-    });
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
   });
-</script>
-</body>
-</html>
+
+  function closeMobile() {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+  }
+
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a
