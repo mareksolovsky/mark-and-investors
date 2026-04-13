@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mark & Investors, osoba rizikového kapitálu, a.s.</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --blue: #2B7FFF;
+    --blue-dark: #1a5fd4;
+    --bg: #080C14;
+    --bg2: #0D1220;
+    --bg3: #111827;
+    --surface: #161E2E;
+    --surface2: #1E2840;
+    --border: rgba(255,255,255,0.08);
+    --text: #F0F4FF;
+    --muted: #8896B0;
+    --accent: #2B7FFF;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 48px;
+    height: 72px;
+    background: rgba(8,12,20,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    letter-spacing: -0.3px;
+    color: var(--text);
+    text-decoration: none;
+    display: flex; align-items: center; gap: 10px;
+  }
+
+  .nav-logo-icon {
+    width: 32px; height: 32px;
+    background: var(--blue);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 800; color: #fff;
+  }
+
+  .nav-links {
+    display: flex; gap: 36px; list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  .nav-btn {
+    background: var(--blue);
+    color: #fff;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+
+  .nav-btn:hover { background: var(--blue-dark); }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh;
+    padding: 120px 48px 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 64px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 70% 40%, rgba(43,127,255,0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 10% 80%, rgba(43,127,255,0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .hero-label {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(43,127,255,0.12);
+    border: 1px solid rgba(43,127,255,0.25);
+    color: #6BABFF;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 28px;
+  }
+
+  .hero-label::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--blue);
+    border-radius: 50%;
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(42px, 5vw, 68px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -1.5px;
+    margin-bottom: 24px;
+    color: var(--text);
+  }
+
+  h1 span { color: var(--blue); }
+
+  .hero-sub {
+    font-size: 17px;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 480px;
+    margin-bottom: 40px;
+  }
+
+  .hero-cta {
+    display: flex; gap: 16px; align-items: center; flex-wrap: wrap;
+    margin-bottom: 64px;
+  }
+
+  .btn-primary {
+    background: var(--blue);
+    color: #fff;
+    padding: 14px 28px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 8px;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .btn-primary:hover { background: var(--blue-dark); transform: translateY(-1px); }
+
+  .btn-secondary {
+    color: var(--text);
+    padding: 14px 28px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    display: inline-flex; align-items: center; gap: 8px;
+    transition: border-color 0.2s, transform 0.15s;
+  }
+
+  .btn-secondary:hover { border-color: rgba(255,255,255,0.2); transform: translateY(-1px); }
+
+  .hero-stats {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .stat {
+    background: var(--surface);
+    padding: 20px 24px;
+  }
+
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text);
+    display: flex; align-items: baseline; gap: 2px;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  /* ─── HERO RIGHT ─── */
+  .hero-right {
+    position: relative;
+    display: flex; flex-direction: column; gap: 16px;
+  }
+
+  .card-graph {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-graph-header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 20px;
+  }
+
+  .card-graph-title {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+
+  .card-graph-val {
+    font-family: 'Syne', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+  }
+
+  .badge-up {
+    background: rgba(16,185,80,0.15);
+    color: #34D574;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 100px;
+  }
+
+  /* SVG Chart */
+  .chart-svg { width: 100%; overflow: visible; }
+
+  .card-mini {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px 24px;
+    display: flex; align-items: flex-start; gap: 16px;
+  }
+
+  .card-mini-icon {
+    width: 40px; height: 40px; flex-shrink: 0;
+    background: rgba(43,127,255,0.12);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .card-mini-icon svg { width: 20px; height: 20px; stroke: var(--blue); fill: none; stroke-width: 1.8; }
+
+  .card-mini-title {
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 4px;
+  }
+
+  .card-mini-text {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .checklist {
+    list-style: none;
+    margin-top: 10px;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+
+  .checklist li {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; color: var(--muted);
+  }
+
+  .checklist li::before {
+    content: '';
+    width: 16px; height: 16px; flex-shrink: 0;
+    border-radius: 50%;
+    background: rgba(43,127,255,0.15);
+    border: 1px solid rgba(43,127,255,0.3);
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 8l3 3 5-5' stroke='%232B7FFF' stroke-width='1.8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  }
+
+  /* ─── DISCLAIMER ─── */
+  .disclaimer-bar {
+    background: rgba(43,127,255,0.07);
+    border-top: 1px solid rgba(43,127,255,0.15);
+    border-bottom: 1px solid rgba(43,127,255,0.15);
+    padding: 14px 48px;
+    display: flex; align-items: flex-start; gap: 12px;
+  }
+
+  .disclaimer-bar svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; stroke: #6BABFF; fill: none; stroke-width: 1.8; }
+
+  .disclaimer-bar p {
+    font-size: 13px;
+    color: #6BABFF;
+    line-height: 1.5;
+  }
+
+  /* ─── SECTIONS ─── */
+  section {
+    padding: 100px 48px;
+  }
+
+  .section-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 16px;
+  }
+
+  h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(32px, 3.5vw, 48px);
+    font-weight: 700;
+    letter-spacing: -0.8px;
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+
+  .section-sub {
+    font-size: 17px;
+    color: var(--muted);
+    max-width: 560px;
+    line-height: 1.7;
+    margin-bottom: 56px;
+  }
+
+  /* ─── O NÁS ─── */
+  #o-nas { background: var(--bg2); }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+
+  .about-cards {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  }
+
+  .about-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+  }
+
+  .about-card-icon {
+    width: 44px; height: 44px;
+    background: rgba(43,127,255,0.12);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 16px;
+  }
+
+  .about-card-icon svg { width: 22px; height: 22px; stroke: var(--blue); fill: none; stroke-width: 1.8; }
+
+  .about-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .about-card p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ─── STRATEGIE ─── */
+  #strategie { background: var(--bg); }
+
+  .strategy-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+
+  .strategy-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    transition: border-color 0.2s;
+  }
+
+  .strategy-card:hover { border-color: rgba(43,127,255,0.3); }
+
+  .strategy-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 48px;
+    font-weight: 800;
+    color: rgba(43,127,255,0.15);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+
+  .strategy-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .strategy-card p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* ─── DOKUMENTY ─── */
+  #dokumenty { background: var(--bg2); }
+
+  .docs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+
+  .doc-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 24px;
+    display: flex; align-items: center; gap: 16px;
+    text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .doc-card:hover {
+    border-color: rgba(43,127,255,0.3);
+    background: var(--surface2);
+  }
+
+  .doc-icon {
+    width: 44px; height: 44px; flex-shrink: 0;
+    background: rgba(43,127,255,0.12);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .doc-icon svg { width: 22px; height: 22px; stroke: var(--blue); fill: none; stroke-width: 1.8; }
+
+  .doc-name {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 3px;
+  }
+
+  .doc-type {
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  /* ─── KONTAKT ─── */
+  #kontakt { background: var(--bg3); }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+
+  .contact-info {
+    display: flex; flex-direction: column; gap: 24px;
+  }
+
+  .contact-item {
+    display: flex; align-items: flex-start; gap: 16px;
+  }
+
+  .contact-item-icon {
+    width: 44px; height: 44px; flex-shrink: 0;
+    background: rgba(43,127,255,0.12);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .contact-item-icon svg { width: 20px; height: 20px; stroke: var(--blue); fill: none; stroke-width: 1.8; }
+
+  .contact-item-label {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+
+  .contact-item-val {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  /* ─── PRÁVNÍ UPOZORNĚNÍ ─── */
+  .legal-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--blue);
+    border-radius: 12px;
+    padding: 28px;
+  }
+
+  .legal-box h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .legal-box p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 10px;
+  }
+
+  .legal-box p:last-child { margin-bottom: 0; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    padding: 48px;
+  }
+
+  .footer-top {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 40px;
+    gap: 48px;
+  }
+
+  .footer-brand {
+    max-width: 320px;
+  }
+
+  .footer-brand-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    display: flex; align-items: center; gap: 10px;
+  }
+
+  .footer-brand-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .footer-links-col h4 {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+
+  .footer-links-col ul {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+
+  .footer-links-col a {
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links-col a:hover { color: var(--text); }
+
+  .footer-bottom {
+    border-top: 1px solid var(--border);
+    padding-top: 32px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+
+  .footer-legal-note {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .footer-copy {
+    font-size: 12px;
+    color: rgba(136,150,176,0.5);
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    nav { padding: 0 24px; }
+    .nav-links { display: none; }
+    #hero { grid-template-columns: 1fr; padding: 100px 24px 60px; }
+    .hero-right { display: none; }
+    .hero-stats { grid-template-columns: 1fr; }
+    section { padding: 60px 24px; }
+    .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+    .strategy-grid { grid-template-columns: 1fr; }
+    .footer-top { flex-direction: column; }
+    .disclaimer-bar { padding: 14px 24px; }
+    footer { padding: 40px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <span class="nav-logo-icon">M</span>
+    Mark & Investors
+  </a>
+  <ul class="nav-links">
+    <li><a href="#o-nas">O nás</a></li>
+    <li><a href="#strategie">Strategie</a></li>
+    <li><a href="#dokumenty">Dokumenty</a></li>
+    <li><a href="#kontakt">Kontakt</a></li>
+  </ul>
+  <a href="#kontakt" class="nav-btn">Kontaktujte nás</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-label">Osoba rizikového kapitálu dle § 15 ZISIF</div>
+    <h1>Správa kapitálu<br>pro <span>kvalifikované</span><br>investory.</h1>
+    <p class="hero-sub">
+      Profesionální správa aktiv srovnatelná s obhospodařováním investičního fondu.
+      Transparentní přístup, individuální strategie, dlouhodobá hodnota.
+    </p>
+    <div class="hero-cta">
+      <a href="#dokumenty" class="btn-primary">
+        Dokumenty ke stažení
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3v8M4 7l4 4 4-4"/></svg>
+      </a>
+      <a href="#o-nas" class="btn-secondary">
+        Zjistit více
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">§&nbsp;15</div>
+        <div class="stat-label">ZISIF registrace ČNB</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">125k+</div>
+        <div class="stat-label">EUR min. investice</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">ORK</div>
+        <div class="stat-label">Osoba rizikového kapitálu</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="card-graph">
+      <div class="card-graph-header">
+        <div>
+          <div class="card-graph-title">Vývoj portfolia</div>
+          <div class="card-graph-val">Individuální</div>
+        </div>
+        <div class="badge-up">Aktivní správa</div>
+      </div>
+      <svg class="chart-svg" viewBox="0 0 340 120" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="grad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#2B7FFF" stop-opacity="0.25"/>
+            <stop offset="100%" stop-color="#2B7FFF" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <path d="M0 100 C30 90, 50 75, 80 68 C110 60, 130 72, 160 55 C190 40, 210 30, 240 20 C270 10, 300 15, 340 5" stroke="#2B7FFF" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M0 100 C30 90, 50 75, 80 68 C110 60, 130 72, 160 55 C190 40, 210 30, 240 20 C270 10, 300 15, 340 5 L340 120 L0 120 Z" fill="url(#grad)"/>
+        <circle cx="340" cy="5" r="5" fill="#2B7FFF"/>
+        <circle cx="340" cy="5" r="9" fill="rgba(43,127,255,0.2)"/>
+      </svg>
+    </div>
+
+    <div class="card-mini">
+      <div class="card-mini-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <div>
+        <div class="card-mini-title">Regulováno & registrováno</div>
+        <div class="card-mini-text">
+          Zapsáno v seznamu ČNB dle § 596 písm. e) ZISIF.<br>
+          Správa majetku srovnatelná s obhospodařováním.
+        </div>
+        <ul class="checklist">
+          <li>Transparentní reporting</li>
+          <li>Investiční dotazník pro každého investora</li>
+          <li>Výhradně kvalifikovaní investoři</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DISCLAIMER BAR -->
+<div class="disclaimer-bar">
+  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+  <p>
+    <strong>Upozornění pro investory:</strong> Tato webová prezentace není veřejnou nabídkou investic ani reklamou určenou širší veřejnosti. Informace zde uvedené jsou určeny výhradně kvalifikovaným investorům ve smyslu § 272 zákona č. 240/2013 Sb. (ZISIF), kteří hodlají investovat minimálně 125 000 EUR. Investice jsou spojeny s rizikem ztráty vložených prostředků. Společnost není licencovaným správcem dle ZISIF a nepodléhá průběžnému dohledu ČNB.
+  </p>
+</div>
+
+<!-- O NÁS -->
+<section id="o-nas">
+  <div class="about-grid">
+    <div>
+      <div class="section-label">O nás</div>
+      <h2>Kdo jsme a co děláme</h2>
+      <p class="section-sub">
+        Mark & Investors, osoba rizikového kapitálu, a.s. je správce majetku srovnatelný s obhospodařováním investičního fondu, zapsaný v seznamu ČNB dle § 15 ZISIF.
+      </p>
+      <p style="font-size:15px; color: var(--muted); line-height:1.7; margin-bottom: 20px;">
+        Naším posláním je profesionální správa kapitálu kvalifikovaných investorů s důrazem na dlouhodobou stabilitu, transparentnost a individuální přístup ke každému investorovi.
+      </p>
+      <p style="font-size:15px; color: var(--muted); line-height:1.7;">
+        Před přijetím každého nového investora provádíme posouzení vhodnosti prostřednictvím investičního dotazníku v souladu s § 15 odst. 4 ZISIF. Investoři jsou předem písemně informováni o všech relevantních skutečnostech a rizicích.
+      </p>
+    </div>
+    <div class="about-cards">
+      <div class="about-card">
+        <div class="about-card-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <h3>Transparentnost</h3>
+        <p>Pravidelný reporting a přístup k informacím o správě vašeho majetku.</p>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>Bezpečnost</h3>
+        <p>Registrace v seznamu ČNB. Dodržování všech zákonných povinností dle ZISIF.</p>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">
+          <svg viewBox="0 0 24 24"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/></svg>
+        </div>
+        <h3>Individuální přístup</h3>
+        <p>Každý investor obdrží investiční dotazník a individuální posouzení vhodnosti.</p>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">
+          <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3>Aktivní správa</h3>
+        <p>Kontinuální monitoring portfolia a přizpůsobování strategie tržním podmínkám.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STRATEGIE -->
+<section id="strategie">
+  <div class="section-label">Investiční přístup</div>
+  <h2>Naše strategie správy</h2>
+  <p class="section-sub">Správa majetku srovnatelná s obhospodařováním. Výhradně pro kvalifikované investory dle ZISIF.</p>
+  <div class="strategy-grid">
+    <div class="strategy-card">
+      <div class="strategy-num">01</div>
+      <h3>Posouzení vhodnosti</h3>
+      <p>Před každou investicí provedeme posouzení vhodnosti na základě investičního dotazníku. Ověříme, zda investice odpovídá vašim zkušenostem, cílům a finanční situaci.</p>
+    </div>
+    <div class="strategy-card">
+      <div class="strategy-num">02</div>
+      <h3>Informační povinnost</h3>
+      <p>S dostatečným předstihem obdržíte veškeré zákonem požadované informace o strategii, rizicích, poplatcích a podmínkách správy vašeho majetku.</p>
+    </div>
+    <div class="strategy-card">
+      <div class="strategy-num">03</div>
+      <h3>Aktivní správa portfolia</h3>
+      <p>Kontinuální správa svěřeného kapitálu s pravidelným reportingem. Veškeré změny strategie konzultujeme s investorem v souladu se smlouvou o správě majetku.</p>
+    </div>
+  </div>
+</section>
+
+<!-- DOKUMENTY -->
+<section id="dokumenty">
+  <div class="section-label">Ke stažení</div>
+  <h2>Povinné dokumenty</h2>
+  <p class="section-sub">Veškeré zákonem požadované dokumenty jsou k dispozici níže. Přístup k dokumentům je určen výhradně kvalifikovaným investorům.</p>
+  <div class="docs-grid">
+    <a href="#" class="doc-card">
+      <div class="doc-icon">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      </div>
+      <div>
+        <div class="doc-name">Statut společnosti</div>
+        <div class="doc-type">PDF dokument</div>
+      </div>
+    </a>
+    <a href="#" class="doc-card">
+      <div class="doc-icon">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      </div>
+      <div>
+        <div class="doc-name">Sdělení klíčových informací</div>
+        <div class="doc-type">PDF dokument · PRIIPs KID</div>
+      </div>
+    </a>
+    <a href="#" class="doc-card">
+      <div class="doc-icon">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      </div>
+      <div>
+        <div class="doc-name">Stanovy akciové společnosti</div>
+        <div class="doc-type">PDF dokument</div>
+      </div>
+    </a>
+    <a href="#" class="doc-card">
+      <div class="doc-icon">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      </div>
+      <div>
+        <div class="doc-name">Investiční dotazník</div>
+        <div class="doc-type">PDF dokument · Posouzení vhodnosti</div>
+      </div>
+    </a>
+    <a href="#" class="doc-card">
+      <div class="doc-icon">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      </div>
+      <div>
+        <div class="doc-name">Výpis z obchodního rejstříku</div>
+        <div class="doc-type">Odkaz na OR · justice.cz</div>
+      </div>
+    </a>
+    <a href="#" class="doc-card">
+      <div class="doc-icon">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      </div>
+      <div>
+        <div class="doc-name">Smlouva o správě majetku</div>
+        <div class="doc-type">Vzorový dokument</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- KONTAKT -->
+<section id="kontakt">
+  <div class="section-label">Kontakt</div>
+  <h2>Spojte se s námi</h2>
+  <p class="section-sub">Pro více informací nás kontaktujte. Rádi zodpovíme vaše dotazy. Připomínáme, že veškerá komunikace je určena výhradně kvalifikovaným investorům.</p>
+
+  <div class="contact-grid">
+    <div class="contact-info">
+      <div class="contact-item">
+        <div class="contact-item-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div>
+          <div class="contact-item-label">Sídlo společnosti</div>
+          <div class="contact-item-val">Doplňte adresu sídla</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <div>
+          <div class="contact-item-label">E-mail</div>
+          <div class="contact-item-val">info@markinvestors.cz</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="2"/><path d="M8 12h8M12 8v8"/></svg>
+        </div>
+        <div>
+          <div class="contact-item-label">IČO</div>
+          <div class="contact-item-val">Doplňte IČO</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        </div>
+        <div>
+          <div class="contact-item-label">Zápis v OR</div>
+          <div class="contact-item-val">Obchodní rejstřík, sp. zn. doplňte</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="legal-box">
+      <h3>Právní upozornění</h3>
+      <p>
+        Mark & Investors, osoba rizikového kapitálu, a.s. je zapsána v seznamu osob provádějících správu majetku srovnatelnou s obhospodařováním investičního fondu, vedeném Českou národní bankou dle § 596 písm. e) zákona č. 240/2013 Sb. (ZISIF). Společnost není licencovaným správcem ve smyslu ZISIF a nepodléhá průběžnému dohledu ČNB.
+      </p>
+      <p>
+        Tato webová prezentace není veřejnou nabídkou investic. Svěřit prostředky do správy mohou výhradně osoby splňující podmínky kvalifikovaného investora dle § 272 ZISIF, které hodlají investovat minimálně 125 000 EUR, a to po provedení posouzení vhodnosti a písemném poučení o rizicích.
+      </p>
+      <p>
+        Investice jsou spojeny s rizikem. Minulé výsledky nejsou zárukou budoucích výnosů. Hodnota spravovaného majetku může klesat i stoupat.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-brand-name">
+        <span class="nav-logo-icon">M</span>
+        Mark & Investors, osoba rizikového kapitálu, a.s.
+      </div>
+      <div class="footer-brand-desc">
+        Správa majetku srovnatelná s obhospodařováním investičního fondu dle § 15 zákona č. 240/2013 Sb. (ZISIF). Zapsána v seznamu ČNB.
+      </div>
+    </div>
+
+    <div class="footer-links-col">
+      <h4>Navigace</h4>
+      <ul>
+        <li><a href="#o-nas">O nás</a></li>
+        <li><a href="#strategie">Strategie</a></li>
+        <li><a href="#dokumenty">Dokumenty</a></li>
+        <li><a href="#kontakt">Kontakt</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-links-col">
+      <h4>Dokumenty</h4>
+      <ul>
+        <li><a href="#">Statut společnosti</a></li>
+        <li><a href="#">Sdělení klíčových informací</a></li>
+        <li><a href="#">Investiční dotazník</a></li>
+        <li><a href="#">Stanovy a.s.</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-links-col">
+      <h4>Právní</h4>
+      <ul>
+        <li><a href="#">Zásady ochrany osobních údajů</a></li>
+        <li><a href="#">Podmínky užití webu</a></li>
+        <li><a href="https://www.justice.cz" target="_blank">Obchodní rejstřík</a></li>
+        <li><a href="https://www.cnb.cz" target="_blank">Seznam ČNB</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p class="footer-legal-note">
+      Tato webová stránka a veškeré informace na ní obsažené jsou určeny výhradně kvalifikovaným investorům ve smyslu § 272 zákona č. 240/2013 Sb., o investičních společnostech a investičních fondech (ZISIF). Nejsou určeny pro veřejnost ani nepředstavují veřejnou nabídku investic. Investice do rizikového kapitálu jsou vysoce rizikové a nejsou vhodné pro každého investora.
+    </p>
+    <p class="footer-copy">
+      © 2025 Mark & Investors, osoba rizikového kapitálu, a.s. · IČO: doplňte · Sídlo: doplňte · Všechna práva vyhrazena.
+    </p>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+</script>
+</body>
+</html>
